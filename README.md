@@ -31,3 +31,7 @@ I primarily relied on Gemini to act as a **pair programmer and senior debugger**
 The AI assistants **dramatically accelerated the debugging process** for configuration and database issues. 
 Tasks that typically require extensive time searching documentation and Stack Overflow (like diagnosing circular migration problems or non-obvious `IntegrityErrors`) were resolved within minutes through targeted, 
 iterative guidance. This allowed me to immediately shift focus from debugging setup problems to **core application feature development**, saving several hours of low-level troubleshooting time.
+
+
+
+
