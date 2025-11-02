@@ -1,0 +1,90 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls static admin_list %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+    &rsaquo; <a href="{% url 'admin:app_list' app_label='sweets' %}">Sweets</a>
+    &rsaquo; {{ title }}
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="module">
+    <h1>{{ title }}</h1>
+    
+    {% if sweets %}
+    <div id="changelist" class="module filtered">
+        <div class="results">
+            <table id="result_list" style="width:100%">
+                <thead>
+                    <tr>
+                        <th scope="col" class="sortable">
+                            <div class="text">
+                                <a>Name</a>
+                            </div>
+                        </th>
+                        <th scope="col" class="sortable">
+                            <div class="text">
+                                <a>Category</a>
+                            </div>
+                        </th>
+                        <th scope="col" class="sortable">
+                            <div class="text">
+                                <a>Price</a>
+                            </div>
+                        </th>
+                        <th scope="col" class="sortable">
+                            <div class="text">
+                                <a>Quantity</a>
+                            </div>
+                        </th>
+                        <th scope="col" class="sortable column-stock_level">
+                            <div class="text">
+                                <a>Stock Level</a>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sweet in sweets %}
+                    <tr class="{% cycle 'row1' 'row2' %}">
+                        <th class="field-name">
+                            {% if sweet.pk %}
+                            <a href="{% url 'admin:sweets_sweet_change' sweet.pk %}">{{ sweet.name }}</a>
+                            {% else %}
+                            {{ sweet.name }}
+                            {% endif %}
+                        </th>
+                        <td class="field-category">
+                            {{ sweet.get_category_display }}
+                        </td>
+                        <td class="field-price">
+                            ${{ sweet.price }}
+                        </td>
+                        <td class="field-quantity">
+                            {{ sweet.quantity }}
+                        </td>
+                        <td class="field-stock_level">
+                            <strong>{{ sweet.stock_level }}</strong>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <p>No sweets found in the database.</p>
+    {% endif %}
+    
+    <div class="submit-row">
+        <p class="deletelink-box">
+            <a href="{% url 'admin:sweets_sweet_changelist' %}" class="button">Back to Sweet List</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
+
